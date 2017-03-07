@@ -1,0 +1,31 @@
+worker_processes  1;
+
+pid /run/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+
+    keepalive_timeout  65;
+
+    gzip  off;
+
+	proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=dns:10m max_size=100m;
+
+	server {
+		listen 127.0.0.1:80;
+		
+		location /api {
+			proxy_pass http://pdns.remote.test;
+			proxy_cache dns;
+			proxy_cache_valid   200 5s;
+		}
+	}
+
+}
