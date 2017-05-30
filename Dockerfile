@@ -12,11 +12,10 @@ RUN set -ex \
 		libtool \
 		boost-dev \
 		wget \
-		openssl-dev \
 		make \
 		lua-dev \
 		sqlite-dev \
-	&& apk add --no-cache libstdc++ lua sqlite \
+	&& apk add --no-cache libstdc++ lua sqlite openssl-dev \
 	&& wget https://downloads.powerdns.com/releases/pdns-"$PDNS_VERSION".tar.bz2 \
 	&& tar jxf pdns-"$PDNS_VERSION".tar.bz2 \
 	&& cd pdns-"$PDNS_VERSION" \
